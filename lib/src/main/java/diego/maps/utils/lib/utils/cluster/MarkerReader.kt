@@ -15,6 +15,7 @@ class MarkerReader {
         for (i in 0 until arrayToProcess.length()) {
             var title: String? = null
             var snippet: String? = null
+            var picture: String? = null
             val `object` = arrayToProcess.getJSONObject(i)
             val lat = `object`.getDouble("lat")
             val lng = `object`.getDouble("lng")
@@ -24,7 +25,10 @@ class MarkerReader {
             if (!`object`.isNull("snippet")) {
                 snippet = `object`.getString("snippet")
             }
-            markers.add(MarkerItem(lat, lng, title, snippet))
+            if (!`object`.isNull("picture")) {
+                picture = `object`.getString("picture")
+            }
+            markers.add(MarkerItem(lat, lng, title, snippet, picture))
         }
         return markers
     }

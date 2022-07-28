@@ -33,5 +33,13 @@
         android:textColor="@color/black"
         android:layout_gravity="center"
         android:enabled="false"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivMarker"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
         android:layout_marginBottom="20dp"/>
 </LinearLayout>

@@ -3,6 +3,7 @@ package diego.maps.utils.myapplication
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -12,6 +13,8 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.data.Feature
 import com.google.maps.android.data.Layer
+import com.google.maps.android.data.geojson.GeoJsonLayer
+import com.google.maps.android.data.geojson.GeoJsonPolygonStyle
 import com.google.maps.android.data.kml.KmlLayer
 import diego.maps.utils.lib.model.MarkerItem
 import diego.maps.utils.lib.ui.DetailBottomSheet
@@ -50,12 +53,18 @@ class MainActivity : AppCompatActivity(), DetailBottomSheet.DetailItemClicked,  
 
         //Kml
         kmlLayer = kmlUtils.retrieveKml(googleMap, kml, this)
-        kmlLayer.addLayerToMap()
-        kmlUtils.processKml(kml, colors, names, ids)
+//        kmlLayer.addLayerToMap()
+//        kmlUtils.processKml(kml, colors, names, ids)
 
+
+        val layerSpain = kmlUtils.retrieveKml(googleMap, R.raw.geojson_spain, this, R.color.black, android.R.color.transparent,1.0f)
+        layerSpain.addLayerToMap()
+
+        val layer = kmlUtils.retrieveKml(googleMap, R.raw.geojson_layer, this, R.color.purple_200, android.R.color.transparent, 2.0f)
+        layer.addLayerToMap()
         //Markers
         val markers = clusterUtils.retrieveMarkers(raw)
-        clusterManager = clusterUtils.retrieveCluster(googleMap, this, supportFragmentManager)
+        clusterManager = clusterUtils.retrieveCluster(googleMap, this, supportFragmentManager, R.drawable.ic_marker, true)
         clusterManager.addItems(markers)
 
         setupInteraction()
@@ -141,20 +150,98 @@ class MainActivity : AppCompatActivity(), DetailBottomSheet.DetailItemClicked,  
     }
 
     private fun moveCamera() {
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(43.361518, -5.854480), 10f))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(41.51834, 0.87013), 20f))
     }
 
-    private val raw = """[
-        { "lat" : 43.361518, "lng" : -5.854480, "title" : "La Gabinona", "snippet": "La fuente de la plaza de América"},
-        { "lat" : 43.360720, "lng" : -5.852762, "title" : "Plaza España", "snippet": "La céntrica fuente de la plaza de España"},
-        { "lat" : 43.364060, "lng" : -5.851448,  "title" : "El Corte Inglés", "snippet" : "Ventas"},
-        { "lat" : 43.363058, "lng" : -5.849815,  "title" : "Estatua de Woody Allen", "snippet" : "Conocidog director de cine"},
-        { "lat" : 43.363292, "lng" : -5.845501,  "title" : "Plaza Juan XXIII", "snippet" : "Plaza con áreas verdes"},
-        { "lat" : 43.362825, "lng" : -5.844710,  "title" : "Palacio de Valdecarzana-Heredia", "snippet" : "Es una gran residencia palaciega urbana"},
-        { "lat" : 43.362702, "lng" : -5.845466,  "title" : "Palacio de Camposagrado", "snippet" : "Es un edificio palaciego de estilo barroco"},
-        { "lat" : 43.362899, "lng" : -5.844023,  "title" : "Jardín de los Reyes Caudillos", "snippet" : "El conjunto escultórico"}
-        ]
-        """
+//    private val raw = """[
+//        { "lat" : 43.361518, "lng" : -5.854480, "title" : "La Gabinona", "snippet": "La fuente de la plaza de América"},
+//        { "lat" : 43.360720, "lng" : -5.852762, "title" : "Plaza España", "snippet": "La céntrica fuente de la plaza de España"},
+//        { "lat" : 43.364060, "lng" : -5.851448,  "title" : "El Corte Inglés", "snippet" : "Ventas"},
+//        { "lat" : 43.363058, "lng" : -5.849815,  "title" : "Estatua de Woody Allen", "snippet" : "Conocidog director de cine"},
+//        { "lat" : 43.363292, "lng" : -5.845501,  "title" : "Plaza Juan XXIII", "snippet" : "Plaza con áreas verdes"},
+//        { "lat" : 43.362825, "lng" : -5.844710,  "title" : "Palacio de Valdecarzana-Heredia", "snippet" : "Es una gran residencia palaciega urbana"},
+//        { "lat" : 43.362702, "lng" : -5.845466,  "title" : "Palacio de Camposagrado", "snippet" : "Es un edificio palaciego de estilo barroco"},
+//        { "lat" : 43.362899, "lng" : -5.844023,  "title" : "Jardín de los Reyes Caudillos", "snippet" : "El conjunto escultórico"}
+//        ]
+//        """
+
+//    private val raw = "[\n" +
+//            "  {\n" +
+//            "    \"lat\": 41.51834,\n" +
+//            "    \"lng\": 0.87013,\n" +
+//            "    \"title\": \"Les Borges Blanques\",\n" +
+//            "    \"snippet\": \"La fuente de la plaza de América\"\n" +
+//            "  },\n" +
+//            "  {\n" +
+//            "    \"lat\": 41.422702,\n" +
+//            "    \"lng\": 1.021196,\n" +
+//            "    \"title\": \"Tarrés\",\n" +
+//            "    \"snippet\": \"La céntrica fuente de la plaza de España\"\n" +
+//            "  },\n" +
+//            "    {\n" +
+//            "    \"lat\": 41.606063,\n" +
+//            "    \"lng\": 0.879895,\n" +
+//            "    \"title\": \"Miralcamp\",\n" +
+//            "    \"snippet\": \"La céntrica fuente de la plaza de España\"\n" +
+//            "  },\n" +
+//            "    {\n" +
+//            "    \"lat\": 41.551069,\n" +
+//            "    \"lng\": 0.88901,\n" +
+//            "    \"title\": \"Puiggròs\",\n" +
+//            "    \"snippet\": \"La céntrica fuente de la plaza de España\"\n" +
+//            "  },\n" +
+//            "    {\n" +
+//            "    \"lat\": 41.382993,\n" +
+//            "    \"lng\": 0.946906,\n" +
+//            "    \"title\": \"El Vilosell\",\n" +
+//            "    \"snippet\": \"La céntrica fuente de la plaza de España\"\n" +
+//            "  },\n" +
+//            "    {\n" +
+//            "    \"lat\": 41.36679,\n" +
+//            "    \"lng\": 0.916169,\n" +
+//            "    \"title\": \"La Pobla de Cérvoles\",\n" +
+//            "    \"snippet\": \"La céntrica fuente de la plaza de España\"\n" +
+//            "  }\n" +
+//            "]"
+
+    private var raw = "[\n" +
+            "  {\n" +
+            "    \"lat\": 41.51834,\n" +
+            "    \"lng\": 0.87013,\n" +
+            "    \"snippet\": \"https://cdn01.segre.com/uploads/imagenes/bajacalidad/2021/01/15/_altat3h3745706_075eb995.jpg?71de88fb5abe502568f6584703613003\",\n" +
+            "    \"title\": \"Les Borges Blanques\"\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"lat\": 41.422702,\n" +
+            "    \"lng\": 1.021196,\n" +
+            "    \"title\": \"Tarrés\",\n" +
+            "    \"snippet\": \"http://www.cerespain.com/images/tarres2.jpg\"\n" +
+            "  },\n" +
+            "    {\n" +
+            "    \"lat\": 41.606063,\n" +
+            "    \"lng\": 0.879895,\n" +
+            "    \"title\": \"Miralcamp\",\n" +
+            "    \"snippet\": \"https://www.rutadelvidelleida.cat/wp-content/uploads/pobladecervoles1.jpg\"\n" +
+            "  },\n" +
+            "    {\n" +
+            "    \"lat\": 41.551069,\n" +
+            "    \"lng\": 0.88901,\n" +
+            "    \"title\": \"Puiggròs\",\n" +
+            "    \"snippet\": \"https://www.rutadelvidelleida.cat/wp-content/uploads/pobladecervoles1.jpg\"\n" +
+            "  },\n" +
+            "    {\n" +
+            "    \"lat\": 41.382993,\n" +
+            "    \"lng\": 0.946906,\n" +
+            "    \"title\": \"El Vilosell\",\n" +
+            "    \"snippet\": \"https://vilosellwinehotel.com/wp-content/uploads/2016/11/EL_VILOSELL.jpg\"\n" +
+            "  },\n" +
+            "    {\n" +
+            "    \"lat\": 41.36679,\n" +
+            "    \"lng\": 0.916169,\n" +
+            "    \"title\": \"La Pobla de Cérvoles\",\n" +
+            "    \"snippet\": \"https://www.rutadelvidelleida.cat/wp-content/uploads/pobladecervoles1.jpg\"\n" +
+            "  }\n" +
+            "]"
 
     var kml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n" +

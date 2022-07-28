@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14175724637681159" />
         <entry key="lib/src/main/res/drawable/bg_recommended.xml" value="0.119" />
         <entry key="lib/src/main/res/drawable/bg_round_border.xml" value="0.113" />
+        <entry key="lib/src/main/res/drawable/progress_animation.xml" value="0.123" />
         <entry key="lib/src/main/res/layout/bottom_sheet_detail.xml" value="0.14175724637681159" />
         <entry key="lib/src/main/res/layout/bottom_sheet_marker_info.xml" value="0.165" />
         <entry key="lib/src/main/res/layout/bottom_sheet_settings.xml" value="0.14175724637681159" />

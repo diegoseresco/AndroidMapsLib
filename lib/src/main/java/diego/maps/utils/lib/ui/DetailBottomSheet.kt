@@ -33,7 +33,6 @@ class DetailBottomSheet(listener: DetailItemClicked, name: String): BottomSheetD
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        preference = Preferences(context)
         setUpViews()
         setUpListeners()
     }

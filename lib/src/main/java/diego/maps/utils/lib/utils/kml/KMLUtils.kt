@@ -1,7 +1,10 @@
 package diego.maps.utils.lib.utils.kml
 
 import android.content.Context
+import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.GoogleMap
+import com.google.maps.android.data.geojson.GeoJsonLayer
+import com.google.maps.android.data.geojson.GeoJsonPolygonStyle
 import com.google.maps.android.data.kml.KmlLayer
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -10,6 +13,16 @@ class KMLUtils {
 
     fun retrieveKml(map: GoogleMap, kmlRaw: String, context: Context): KmlLayer {
         return KmlLayer(map, kmlRaw.byteInputStream(), context)
+    }
+
+    fun retrieveKml(map: GoogleMap, resource: Int, context: Context, strokeColor: Int, fillColor: Int, zIndex: Float): GeoJsonLayer {
+        val layer = GeoJsonLayer(map, resource, context)
+        val geoPolygonStyle: GeoJsonPolygonStyle = layer.defaultPolygonStyle
+        geoPolygonStyle.strokeColor = ContextCompat.getColor(context, strokeColor)
+        geoPolygonStyle.fillColor = ContextCompat.getColor(context, fillColor)
+        geoPolygonStyle.zIndex = zIndex
+        geoPolygonStyle.isClickable = true;
+        return layer
     }
 
     fun processKml(kmlRaw: String, colors: ArrayList<String>, names: ArrayList<String>, ids: ArrayList<String>) {

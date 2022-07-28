@@ -7,17 +7,13 @@ class MarkerItem : ClusterItem {
     private val mPosition: LatLng
     private var mTitle: String?
     private var mSnippet: String?
+    private var mPicture: String?
 
-    constructor(lat: Double, lng: Double) {
-        mPosition = LatLng(lat, lng)
-        mTitle = null
-        mSnippet = null
-    }
-
-    constructor(lat: Double, lng: Double, title: String?, snippet: String?) {
+    constructor(lat: Double, lng: Double, title: String?, snippet: String?, picture: String?) {
         mPosition = LatLng(lat, lng)
         mTitle = title
         mSnippet = snippet
+        mPicture = picture
     }
 
     override fun getPosition(): LatLng {
