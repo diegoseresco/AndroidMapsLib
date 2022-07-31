@@ -12,9 +12,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import diego.maps.utils.lib.R
+import diego.maps.utils.lib.model.MarkerItem
 import kotlinx.android.synthetic.main.bottom_sheet_marker_info.*
 
-class MarkerInfoBottomSheet(context: Context, marker: Marker, showPic: Boolean): BottomSheetDialogFragment() {
+class MarkerInfoBottomSheet(marker: MarkerItem, showPic: Boolean): BottomSheetDialogFragment() {
 
     private var dismissWithAnimation = false
     private val markerInfo = marker
@@ -49,6 +50,7 @@ class MarkerInfoBottomSheet(context: Context, marker: Marker, showPic: Boolean):
             ivMarker.visibility = View.VISIBLE
         } else {
             ivMarker.visibility = View.GONE
+            vBottomSpace.visibility = View.VISIBLE
         }
 
     }
@@ -66,8 +68,8 @@ class MarkerInfoBottomSheet(context: Context, marker: Marker, showPic: Boolean):
     companion object {
         const val TAG = "modalDetailSheet"
         const val ARG_DISMISS_WITH_ANIMATION = "dismiss_with_animation"
-        fun newInstance(dismissWithAnimation: Boolean, context: Context, marker: Marker, showPic: Boolean): MarkerInfoBottomSheet {
-            val modalSheet = MarkerInfoBottomSheet(context, marker, showPic)
+        fun newInstance(dismissWithAnimation: Boolean, marker: MarkerItem, showPic: Boolean): MarkerInfoBottomSheet {
+            val modalSheet = MarkerInfoBottomSheet(marker, showPic)
             modalSheet.arguments = bundleOf(ARG_DISMISS_WITH_ANIMATION to dismissWithAnimation)
             return modalSheet
         }

@@ -24,6 +24,12 @@
         android:enabled="false"
         android:layout_marginBottom="10dp"/>
 
+    <View
+        android:id="@+id/vBottomSpace"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:visibility="gone"/>
+
     <TextView
         android:id="@+id/tvDescriptionMarker"
         android:layout_width="wrap_content"

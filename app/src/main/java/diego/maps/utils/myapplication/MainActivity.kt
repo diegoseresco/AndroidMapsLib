@@ -8,6 +8,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.clustering.ClusterManager
@@ -22,8 +23,10 @@ import diego.maps.utils.lib.ui.SettingsBottomSheet
 import diego.maps.utils.lib.utils.cluster.ClusterUtils
 import diego.maps.utils.lib.utils.cluster.MarkerReader
 import diego.maps.utils.lib.utils.kml.KMLUtils
+import diego.maps.utils.lib.utils.marker.MarkerUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONException
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity(), DetailBottomSheet.DetailItemClicked,  SettingsBottomSheet.SettingsItemClicked, OnMapReadyCallback {
 
@@ -63,14 +66,315 @@ class MainActivity : AppCompatActivity(), DetailBottomSheet.DetailItemClicked,  
         val layer = kmlUtils.retrieveKml(googleMap, R.raw.geojson_layer, this, R.color.purple_200, android.R.color.transparent, 2.0f)
         layer.addLayerToMap()
         //Markers
-        val markers = clusterUtils.retrieveMarkers(raw)
-        clusterManager = clusterUtils.retrieveCluster(googleMap, this, supportFragmentManager, R.drawable.ic_marker, true)
-        clusterManager.addItems(markers)
+//        val markers = clusterUtils.retrieveMarkers(raw)
+//        clusterManager = clusterUtils.retrieveCluster(googleMap, this, supportFragmentManager, R.drawable.ic_marker, true)
+//        clusterManager.addItems(markers)
 
+//        val geoJsonData =  JSONObject("{ \"type\": \"FeatureCollection\", \"features\": $geoJson}")
+//        val stopsLayer = GeoJsonLayer(googleMap, geoJsonData)
+//        val pointStyle = stopsLayer.defaultPointStyle
+//        pointStyle.icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker)
+//        stopsLayer.setOnFeatureClickListener { feature ->
+////            onSelectStopFromMap(feature)
+//            Toast.makeText(this, "hey!", Toast.LENGTH_SHORT).show()
+//        }
+//        stopsLayer.addLayerToMap();
+        val markerUtils = MarkerUtils()
+        val stopsLayer = markerUtils.retrieveMarkers(googleMap, geoJson, supportFragmentManager, R.drawable.ic_marker, false)
+        stopsLayer.addLayerToMap();
         setupInteraction()
         moveCamera()
 
     }
+
+    var geoJson = "[\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Les Borges Blanques\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.87013,\n" +
+            "        41.51834\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Tarrés\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        1.021196,\n" +
+            "        41.422702\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Miralcamp\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.879895,\n" +
+            "        41.606063\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Puiggròs\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.88901,\n" +
+            "        41.551069\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"El Vilosell\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.946906,\n" +
+            "        41.382993\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"La Pobla de Cérvoles\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.916169,\n" +
+            "        41.36679\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Bellaguarda\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.73855,\n" +
+            "        41.336906\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Bovera\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.638462,\n" +
+            "        41.327023\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"La Granadella\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.664626,\n" +
+            "        41.355634\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Torrebeses\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.591701,\n" +
+            "        41.425374\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Cervià de les Garrigues\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.861153,\n" +
+            "        41.425661\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Cervià de les Garrigues\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.861084,\n" +
+            "        41.425624\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Els Omellons\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.959936,\n" +
+            "        41.500998\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Els Omellons\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.959987,\n" +
+            "        41.50096\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Fulleda\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        1.025327,\n" +
+            "        41.463145\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Fulleda\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        1.025571,\n" +
+            "        41.462553\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"L'Albí\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.940586,\n" +
+            "        41.423821\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"L'Albí\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.940596,\n" +
+            "        41.423688\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"La Floresta\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.91923,\n" +
+            "        41.509691\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"La Floresta\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.920629,\n" +
+            "        41.508754\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"L'Espulga Calba\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        1.004454,\n" +
+            "        41.495331\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"type\": \"Feature\",\n" +
+            "    \"properties\": {\n" +
+            "      \"name\": \"Vinaixa\"\n" +
+            "    },\n" +
+            "    \"geometry\": {\n" +
+            "      \"type\": \"Point\",\n" +
+            "      \"coordinates\": [\n" +
+            "        0.973954,\n" +
+            "        41.428774\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  }\n" +
+            "]"
 
     private fun setupInteraction() {
         fab.setOnClickListener {

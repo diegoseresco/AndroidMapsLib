@@ -16,6 +16,13 @@ class MarkerItem : ClusterItem {
         mPicture = picture
     }
 
+    constructor(title: String?, snippet: String?) {
+        mPosition = LatLng(0.0, 0.0)
+        mTitle = title
+        mSnippet = snippet
+        mPicture = null
+    }
+
     override fun getPosition(): LatLng {
         return mPosition
     }

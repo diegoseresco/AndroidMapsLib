@@ -14,7 +14,6 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.view.DefaultClusterRenderer
-import com.google.maps.android.ui.IconGenerator
 import diego.maps.utils.lib.R
 import diego.maps.utils.lib.model.MarkerItem
 import diego.maps.utils.lib.ui.DetailBottomSheet
@@ -72,7 +71,8 @@ class ClusterUtils {
 
         clusterManager.markerCollection.setOnInfoWindowClickListener { itMarker ->
             supportFragmentManager?.let { itFragmentManager ->
-                val detailSheet = MarkerInfoBottomSheet.newInstance(true, context, itMarker, showPic)
+                val markerItem = MarkerItem(itMarker.title, itMarker.snippet)
+                val detailSheet = MarkerInfoBottomSheet.newInstance(true, markerItem, showPic)
                 detailSheet.show(itFragmentManager, DetailBottomSheet.TAG)
             } ?: kotlin.run {
                 Toast.makeText(context, "Falta instanciar supportFragmentManager", Toast.LENGTH_SHORT).show()
