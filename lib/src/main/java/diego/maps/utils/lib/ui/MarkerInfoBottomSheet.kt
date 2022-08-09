@@ -1,20 +1,23 @@
 package diego.maps.utils.lib.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
-import com.google.android.gms.maps.model.Marker
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.progressindicator.CircularProgressIndicator
 import diego.maps.utils.lib.R
 import diego.maps.utils.lib.model.MarkerItem
 import kotlinx.android.synthetic.main.bottom_sheet_marker_info.*
 
+/**
+ * Muestra información del Marker Item en un bottomSheet.
+ *
+ * @param marker MarkerItem.
+ * @param showPic permite mostrar una imagen cuando  se abre el bottomSheet
+ */
 class MarkerInfoBottomSheet(marker: MarkerItem, showPic: Boolean): BottomSheetDialogFragment() {
 
     private var dismissWithAnimation = false

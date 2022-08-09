@@ -15,10 +15,6 @@ import diego.maps.utils.lib.R
 import kotlinx.android.synthetic.main.bottom_sheet_detail.*
 import java.util.prefs.Preferences
 
-/*
-  Initializes the Detail KML View
-  This shows three options: change the color of the layer, edit the name and the transparency
-*/
 class DetailBottomSheet(listener: DetailItemClicked, name: String): BottomSheetDialogFragment() {
 
     private var dismissWithAnimation = false

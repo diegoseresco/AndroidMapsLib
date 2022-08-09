@@ -19,10 +19,20 @@ import diego.maps.utils.lib.model.MarkerItem
 import diego.maps.utils.lib.ui.DetailBottomSheet
 import diego.maps.utils.lib.ui.MarkerInfoBottomSheet
 
-
+/**
+ * Grupo de funciones relacionado con *Clusters*.
+ *
+ * Esta clase permite la integración de Clusters de manera rápida, eficiente y con muchas mayores funcionalidades
+ *
+ * @param map instancia de GoogleMaps.
+ * @param supportFragmentManager (opcional) permite mostrar los bottomSheets.
+ * @param icon (opcional) ícono del marker
+ * @param showPic (opcional) permite mostrar una imagen cuando  se abre el bottomSheet
+ */
 class ClusterUtils {
 
-    fun retrieveCluster(map: GoogleMap, context: Context, supportFragmentManager: FragmentManager? = null, icon: Int? = null, showPic: Boolean? = true): ClusterManager<MarkerItem> {
+    fun retrieveCluster(map: GoogleMap, context: Context, supportFragmentManager: FragmentManager? = null,
+                        icon: Int? = null, showPic: Boolean? = true): ClusterManager<MarkerItem> {
         val clusterManager: ClusterManager<MarkerItem> = ClusterManager(context, map)
         icon?.let {
             val bitMapIcon = BitmapDescriptorFactory.fromResource(it)
@@ -33,6 +43,10 @@ class ClusterUtils {
         return clusterManager
     }
 
+    /**
+     * Adds a [retrieveCluster] to this group.
+     * @return the new size of the group.
+     */
     private fun setSimpleInteraction(clusterManager: ClusterManager<MarkerItem>, context: Context) {
         clusterManager.markerCollection.setInfoWindowAdapter(object : InfoWindowAdapter {
             override fun getInfoWindow(marker: Marker): View {
