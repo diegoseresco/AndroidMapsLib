@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "TestLib"
+rootProject.name = "SerescoMapsUtils"
 include ':app'
 include ':lib'
